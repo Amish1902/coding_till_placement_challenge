@@ -1,0 +1,23 @@
+int rec(Node *first,Node *second,int cnt)
+{
+    if(first==NULL || second==NULL || first->data!=second->data)
+    return cnt;
+    return rec(first->next,second->next,cnt+1);
+}
+int maxPalindrome(Node *head)
+{
+    Node *prev=NULL;
+    Node *current=head;
+    int maxlen=1;
+    while(current!=NULL)
+    {
+        Node *next=current->next;
+        current->next=prev;
+        maxlen=max(maxlen,2*rec(current,next,0));
+        maxlen=max(maxlen,2*rec(prev,next,0)+1);
+        prev=current;
+        current=next;
+        
+    }
+    return maxlen;
+}
