@@ -1,0 +1,42 @@
+class Solution{
+ public:
+   int minOperations(int arr[], int n, int k) {
+       // code here 
+       // decleare a priority queue which is a basically min heap
+       priority_queue <int, vector<int>, greater<int> > pq;
+
+       // pushing the element into the pq
+       for(int i=0;i<n;i++)
+       {
+           pq.push(arr[i]);
+       }
+       
+
+      // variable that stores the current top value initialize with 0
+       int value =0;
+       
+
+       // no of times the we need to sum up the min number to make the sum greater to their  target sum 
+       int no_of_times=0;
+        // loop condition
+       while(pq.top() <k)
+       {
+           int value = pq.top();
+
+           // removing it from pq 
+           pq.pop();
+           // checking if is possible or not otherwise return -1
+           if(pq.empty() && value <k) return -1;
+           
+           int value2= pq.top();
+
+           // second variable and we are checking and suming up and trying to find while condition is satisfied or not 
+           pq.pop();
+
+// push the sum of ele1+ele2 
+           pq.push(value+value2);
+           no_of_times++;
+       }
+       return no_of_times; // returnning the answer
+   }
+};
