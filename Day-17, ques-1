@@ -1,0 +1,11 @@
+Geek and knots
+MediumAccuracy: 49.93%Submissions: 3507Points: 4
+Given two walls A, B with M, N hooks respectively. You are given K ropes. You can connect one hook on wall A with another hook on wall B. Find the number of different ways you can use all the K ropes.
+Two ways that use the exact same set of hooks from wall A and wall B are considered to be same. 
+
+For Example, 
+A1    A2    A3      is same as     A1   A2   A3     and can be ignored.
+ |                |                                 |              |      
+B1             B2                              B2           B1
+
+Note: Answer can be large, return the answer modulo 109+7. 
