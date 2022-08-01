@@ -1,0 +1,23 @@
+class Solution
+{
+   public:
+   //Function to find minimum number of attempts needed in 
+   //order to find the critical floor.
+   vector<vector<int>> dp;
+   int eggDp(int n, int k) 
+   {
+     if(k==1||n==1)//solve it for 1egg k floors- u need k chances without breaking
+     return k;
+     
+     if(dp[n][k]!=-1)
+     return dp[n][k];
+      int ans=k;//i==1||i==k u need k chances  
+      for(int i=2;i<k;i++){
+          ans=min(1+max(eggDp(n-1,i-1),eggDp(n,k-i)),ans);
+      }
+       return dp[n][k]=ans;
+   }
+    int eggDrop(int n, int k){
+        dp.resize(n+1,vector<int>(k+1,-1));
+        return eggDp(n,k);
+    }
