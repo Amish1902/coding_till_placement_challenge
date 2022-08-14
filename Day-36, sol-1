@@ -1,0 +1,67 @@
+bool helper(Node *root,vector<Node *>&v,int &n) {
+        if(!root) {
+            return false;
+        }
+        v.push_back(root);
+        if(root->data==n) {
+            return true;
+        }
+        else if(helper(root->left,v,n) || helper(root->right,v,n)) {
+            return true;
+        }
+        v.pop_back();
+        return false;
+    }
+    // Function to find the lowest common anestor of two nodes with values n1 and n2
+    Node* lca(Node* root ,int n1 ,int n2 ) {
+        if(!root) {
+            return NULL;
+        }
+        vector<Node *>v1,v2;
+        if(!helper(root,v1,n1) || !helper(root,v2,n2)) {
+            return NULL;
+        }
+        int i=0;
+        while(i<v1.size() && i<v2.size()) {
+            if(v1[i]!=v2[i]) {
+                break;
+            }
+            i++;
+        }
+        return v1[i-1];
+    }
+    // Function to count the number of turns in the path from the lca Node to a node with value = n 
+    // direction variable denotes the previous turn. 
+    // if direction = 'l' that means previously we've taken left turn
+    // if direction = 'r' that means previously we've taken right turn
+    // if direction = '$' that means we haven't taken any turn
+    long turns(Node *lcaNode,char direction,int &n) {
+        if(!lcaNode) {
+            return INT_MAX;
+        }
+        if(lcaNode->data==n) {
+            return 0;
+        }
+        long leftCount=turns(lcaNode->left,'l',n);
+        long rightCount=turns(lcaNode->right,'r',n);
+        if(direction=='$') {
+            return min(leftCount,rightCount);
+        }
+        else if(direction=='l') {
+            return min(leftCount,1+rightCount);
+        }
+        else {
+            return min(1+leftCount,rightCount);
+        }
+    }
+    // function should return the number of turns required to go 
+    // from first node to second node 
+    int NumberOFTurns(struct Node* root,int first,int second) {
+        Node *lower=lca(root,first,second);
+        long f=turns(lower,'$',first),s=turns(lower,'$',second);
+        if(lower->data==first || lower->data==second) {
+            return f+s;
+        }
+        return f+s+1;
+    }
+};
