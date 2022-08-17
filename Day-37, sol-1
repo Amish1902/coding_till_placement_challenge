@@ -1,0 +1,27 @@
+Class Solution{
+	public:
+	vector<int> FactDigit(int N)
+	{
+	    vector<int>fact(10);
+	    fact[0]=1;
+	    fact[1]=1;
+	    for(int i=2;i<10;i++)
+	    {
+	        fact[i]=i*fact[i-1];
+	    }
+	    
+	    vector<int>ans;
+	    for(int i=9;i>=0;i--)
+	    {
+	        if(N>=fact[i])
+	        {
+	            N-=fact[i];
+	            ans.push_back(i);
+	            i++;
+	        }
+	    }
+	    
+	    reverse(ans.begin(),ans.end());
+	    return ans;
+	}
+};
