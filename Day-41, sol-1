@@ -1,0 +1,80 @@
+class Solution {
+  public:
+    string findSum(string X, string Y) {
+        // Your code goes here
+      bool checkZeros1 = true; 
+        bool checkZeros2 = true; 
+        for(auto k : X)
+        {
+            if(k!='0') checkZeros1 = false;
+        }
+        for(auto l: Y)
+        {
+            if(l!='0') checkZeros2 = false;
+        }
+        
+        //for removing leading zeros
+        const regex pattern("^0+(?!$)");
+        
+        //if both string is zero
+        if(checkZeros1 && checkZeros2) return "0";
+        
+        //else one string is zero
+        Y = regex_replace(Y, pattern, "");
+        if(checkZeros1) return Y;
+        X = regex_replace(X, pattern, "");
+        if(checkZeros2) return X;
+        
+        //both string are non-zero and no leading zeros
+        string res="";
+        int sz1 = X.size();
+        int sz2 = Y.size();
+        
+        int i = sz1-1,j =sz2-1;
+        
+        int carry=0;
+        while(i>=0 && j>=0)
+        {
+            int a = int(X[i])-48;
+            int b = int(Y[j])-48;
+            
+            // cout<<b<<endl;
+            int sum = a+b+carry;
+            carry = sum/10;
+            sum = sum%10;
+            res.push_back(sum+48);
+            i--;
+            j--;
+        }
+        
+        while(i>=0)
+        {
+            int a = X[i]-48;
+            int sum = a+carry;
+            carry = sum/10;
+            sum = sum%10;
+            res.push_back(sum+48);
+            i--;
+        }
+        
+        while(j>=0)
+        {
+            int b = Y[j]-48;
+            int sum = b+carry;
+            carry = sum/10;
+            sum = sum%10;
+            res.push_back(sum+48);
+            j--;
+        }
+        
+        while(carry)
+        {
+            int sum = carry;
+            carry = sum/10;
+            sum = sum%10;
+            res.push_back(sum+48);
+        }
+        reverse(res.begin(),res.end());
+        return res;
+    }
+};
