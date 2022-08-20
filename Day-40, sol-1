@@ -1,0 +1,26 @@
+int solve(vector<vector<int>> &v,int i,int j,int n,int m,int &temp){
+       if(i>=0 && j>=0 && i<n && j<m && v[i][j] == 1){
+           temp++;
+           v[i][j] = 0;
+           int a[] = {1, 1,1,-1,-1,-1,0, 0};
+           int b[] = {1,-1,0, 1, 0,-1,1,-1};
+           for(int p=0; p<8; p++)
+              solve(v,i+a[p], j+b[p], n, m,temp);
+       }
+   }
+   
+   int findMaxArea(vector<vector<int>>& grid) {
+       int n = grid.size();
+       int m = grid[0].size();
+       int ans = 0,temp = 0;
+       for(int i=0;i<n;i++)
+           for(int j=0; j<m; j++){
+              if(grid[i][j] == 1){
+                solve(grid,i,j,n,m,temp);
+                ans = max(ans,temp);
+                temp = 0;
+              }
+           }
+      
+      return ans;
+   }
