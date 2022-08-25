@@ -1,0 +1,16 @@
+ for(int i=0;i<m;i++){
+       int low=0;
+       int curr=arr1[i];
+       int high=n-1;
+       while(low<=high){
+           int mid=(low+high)/2;
+           if(arr2[mid]<=curr){
+               low=mid+1;       
+           }
+           else{
+               high=mid-1;
+           }
+       }
+       vc.push_back(high+1);
+   }
+   return vc;
