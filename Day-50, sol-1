@@ -1,0 +1,20 @@
+queue<Node *> q;
+          q.push(root);
+          bool found=false;
+          while(!q.empty()){
+              int s = q.size();
+              while(s--){
+                  Node *curr=q.front();
+                  q.pop();
+                  if(found)
+                  return curr;
+                  if(curr-> data==key)
+                  found=true;
+                  if(curr->left)
+                  q.push(curr->left);
+                  if(curr->right)
+                  q.push(curr->right);
+              }
+              if(found)
+              return new Node(-1);
+          }
