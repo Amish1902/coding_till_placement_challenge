@@ -1,0 +1,33 @@
+   int cnt = 0;
+
+            int ans = 0;
+
+            int cnt2 = 0;
+
+            
+
+            for(int i=n-1; i>=0; i--){
+
+                int temp = v[i]*T + c[i];
+
+                if(temp>=b){
+
+                    cnt++;                // count of sheep reached to ban
+
+                    ans += cnt2;             // this much sheep we are lifting each time for curr sheep
+
+                }
+
+                else cnt2++;                  // we have to use crane for behind sheep
+
+                
+
+                if(cnt>=k) break;              // k sheep reached
+
+            }
+
+            
+
+            if(cnt>=k) return ans;           // if k sheep reached how many swaps
+
+            return -1;    
