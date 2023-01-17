@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int minFlipsMonoIncr(string s) {
+        int a=0;
+        int ans=0;
+        for(int i=0;i<s.size();i++)
+        {
+            if(s[i]=='1')
+            {
+                a++;
+            }
+            else
+            {
+                ans++;
+                ans=min(a,ans);
+            }
+        }
+        return ans;
+    }
+};
