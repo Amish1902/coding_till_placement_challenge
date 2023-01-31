@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int bestTeamScore(vector<int>& scores, vector<int>& ages) {
+        int n=scores.size();
+        vector<pair<int,int>>combined;
+        for(int i=0;i<n;i++)
+        {
+            combined.push_back({ages[i],scores[i]});
+        }
+        sort(combined.begin(),combined.end());
+        int lis[n];
+        lis[0]=combined[0].second;
+        int max_sum=lis[0];
+        for(int i=1;i<n;i++)
+        {
+        int sum=0;
+        for(int j=0;j<i;j++)
+        {
+            if(combined[j].second<=combined[i].second)
+            {
+                sum=max(sum,lis[j]);
+            }
+        }
+            lis[i]=sum+combined[i].second;
+            max_sum=max(max_sum,lis[i]);
+        }
+        return max_sum;
+    }
+};
