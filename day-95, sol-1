@@ -1,0 +1,22 @@
+class Solution {
+public:
+
+    void calc_dist(TreeNode* root, int &min_dif, int &value)
+    {
+        if(root==NULL) return;
+        calc_dist(root->left, min_dif, value);
+        if(value!=-1)
+        {
+            min_dif = min(min_dif,root->val - value);
+        }
+        value=root->val;
+        calc_dist(root->right, min_dif, value);
+    }
+
+    int minDiffInBST(TreeNode* root) {
+       int min_dif= INT_MAX;
+       int value = -1;
+       calc_dist(root, min_dif, value);
+       return min_dif; 
+    }
+};
