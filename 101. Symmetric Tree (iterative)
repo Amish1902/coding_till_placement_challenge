@@ -1,0 +1,26 @@
+class Solution {
+public:
+    bool isSymmetric(TreeNode* root) {
+        if(root==nullptr)
+        {
+            return true;
+        }
+        stack<TreeNode*>stack;
+        stack.push(root->left);
+        stack.push(root->right);
+        while(!stack.empty())
+        {
+            TreeNode* r = stack.top();
+            stack.pop();
+            TreeNode* l = stack.top();
+            stack.pop();
+            if(l== nullptr && r==nullptr) continue;
+            if(l==nullptr || r==nullptr || l->val != r->val) return false;
+            stack.push(l->left);
+            stack.push(r->right);
+            stack.push(l->right);
+            stack.push(r->left);
+        }
+        return true;
+    }
+};
