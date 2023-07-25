@@ -1,0 +1,43 @@
+class Solution {
+public:
+
+        void merge(vector<int>& nums, int start, int mid, int end, int &pair)
+        {
+            int i=start;
+            int j=mid+1;
+
+            while(i<=mid && j<=end)
+            {
+                if(nums[i]> 2*1ll*nums[j])
+                {
+                    pair+=(mid-i+1);
+                    j++;
+                }
+                else
+                {
+                    i++;
+                }
+            }
+            sort(nums.begin()+start, nums.begin()+end+1);
+        }
+
+        void mergeSort(vector<int>& nums, int start, int end, int &pair)
+        {
+            int mid = start + (end-start)/2;
+            if(start<end)
+            {
+                mergeSort(nums, start, mid, pair);
+                mergeSort(nums, mid+1, end, pair);
+
+                merge(nums, start, mid, end, pair);
+            }
+
+        }
+        
+        int reversePairs(vector<int>& nums) {
+        int n=nums.size();
+        int pair=0;
+        mergeSort(nums, 0, n-1, pair);
+        return pair;
+    }
+};
