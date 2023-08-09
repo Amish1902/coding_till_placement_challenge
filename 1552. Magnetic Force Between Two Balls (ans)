@@ -1,0 +1,45 @@
+class Solution {
+public:
+
+bool is_possible(vector<int>&position, int n, int m, int mid)
+{
+    int ball_count=1;
+    int last_position=position[0];
+
+    for(int i=0;i<n;i++)
+    {
+        if(position[i]-last_position>=mid)
+    {
+        ball_count++;
+        if(ball_count==m)
+        {
+            return true;
+        }
+        last_position=position[i];
+    }
+    }
+    return false;
+}
+
+    int maxDistance(vector<int>& position, int m) {
+        sort(position.begin(), position.end());
+        int start=0;
+        int ans=-1;
+        int end = position[position.size()-1]-position[0];
+
+        while(start<=end)
+        {
+            int mid = start + (end-start)/2;
+            if(is_possible(position, position.size(), m, mid))
+            {
+                ans=mid;
+                start=mid+1;
+            }
+            else
+            {
+                end=mid-1;
+            }
+        }
+        return ans;
+    }
+};
